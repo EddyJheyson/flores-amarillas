@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style2.css">
     <link rel="stylesheet" href="">
-    <title>FLORES</title>
+    <title>PARA TI ♡ - 21 SEPTIEMBRE</title>
 </head>
 <body>
     <div class="greetings">
@@ -43,6 +43,47 @@
 
 
     </div>
+    <audio id="miAudio" autoplay>
+        <source src="audio/stik-io.mp3" type="audio/mpeg">
+        <source src="audio/stik-io.mp3" type="audio/ogg">
+      </audio>
+        
     
+
+    <div id="status"></div>
+
+    <script>
+        const audio = document.getElementById('miAudio');
+        const statusDiv = document.getElementById('status');
+
+        function updateStatus(message) {
+            statusDiv.textContent = message;
+            console.log(message);
+        }
+
+        function intentarReproduccion() {
+            audio.play().then(() => {
+                updateStatus('Audio reproduciéndose automáticamente.');
+            }).catch(error => {
+                updateStatus();
+                console.error();
+            });
+        }
+
+        // Intenta reproducir inmediatamente
+        intentarReproduccion();
+
+        // También intenta reproducir cuando la página esté completamente cargada
+        window.addEventListener('load', intentarReproduccion);
+         // Intenta reproducir en el primer clic en la página
+         document.addEventListener('click', function clickHandler() {
+            intentarReproduccion();
+            document.removeEventListener('click', clickHandler);
+        }, { once: true });
+
+        audio.addEventListener('play', () => updateStatus('Audio iniciado.'));
+        audio.addEventListener('pause', () => updateStatus('Audio pausado.'));
+        audio.addEventListener('ended', () => updateStatus('Audio finalizado.'));
+    </script>
 </body>
 </html>
